@@ -1,2 +1,34 @@
-# Multilingual-Reasoning-Pipeline
-A multilingual evaluation pipeline assessing the logical and physical commonsense reasoning of 8 state-of-the-art closed and open-source models using the Hellaswag and Global PIQA datasets.
+# Multilingual NLP Evaluation: Hellaswag & Global PIQA
+
+This repository contains the evaluation pipeline and methodology for testing state-of-the-art commercial and open-source Large Language Models (LLMs) on multilingual logical reasoning tasks.
+
+## Datasets Evaluated
+The models are benchmarked across 6 distinct European languages (English, German, French, Hungarian, Polish, Romanian) across two core datasets:
+1. **Hellaswag** (4-Option Situational Logic)
+2. **Global PIQA** (2-Option Physical Commonsense)
+
+## Project Architecture
+* `data/` - The storage directory containing the `.jsonl` and `.xlsx` dataset samples. (Note: Data is excluded from source control).
+* `scripts/` - Utility scripts to connect to HuggingFace to download the massive datasets directly to your local `data/` folder.
+* `src/` - The core execution pipeline orchestrating the OpenRouter API requests, formatting logic safely, and automatically catching network timeouts / empty response errors.
+* `results/` - The output directory holding the granular `evaluation_results.xlsx`, normalized summary breakdown, and generated `.docx` methodology written analysis.
+
+## Pipeline Highlights
+* **Deterministic Inference:** All queries use `temperature=0.0`.
+* **Zero-Shot Evaluation:** System evaluates raw logic capabilities without few-shot examples.
+* **Academic Normalization:** Raw accuracy scores are translated into Adjusted Accuracy mathematically accounting for random-guessing baselines (25% vs 50%).
+
+## How to Run
+
+1. Clone this repository
+2. Install the necessary libraries via pip:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Use the scripts in `scripts/` to acquire datasets to test matching your needs.
+4. Input your `OPENROUTER_API_KEY` directly inside `src/config.py` (or load as a `.env` variable).
+5. Open your terminal at the root of the project and execute:
+   ```bash
+   python main.py
+   ```
+6. Select your dataset language from the interactive terminal menu to begin processing inferences cleanly into the `results/` folder!
